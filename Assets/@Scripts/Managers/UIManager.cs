@@ -67,7 +67,7 @@ public class UIManager : Singleton<UIManager>
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject obj = ResourceManager.Instance.Load<GameObject>($"{name}.prefab");
+        GameObject obj = ResourceManager.Instance.GetCache<GameObject>($"{name}.prefab");
         obj = Instantiate(obj, Root.transform);
 
         _sceneUI = obj.GetOrAddComponent<T>();
@@ -79,7 +79,7 @@ public class UIManager : Singleton<UIManager>
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        GameObject obj = ResourceManager.Instance.Load<GameObject>($"{name}.prefab");
+        GameObject obj = ResourceManager.Instance.GetCache<GameObject>($"{name}.prefab");
         obj = Instantiate(obj, Root.transform);
 
         T popUp = obj.GetOrAddComponent<T>();
@@ -106,7 +106,7 @@ public class UIManager : Singleton<UIManager>
         if (_popUpStack.Count == 0) return;
 
         UI_PopUp popUp = _popUpStack.Pop();
-        ResourceManager.Instance.Destroy(popUp.gameObject);
+        Destroy(popUp.gameObject);
         _popUpOrder--;
         //RefreshTimeScale();
     }

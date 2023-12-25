@@ -15,11 +15,7 @@ public class ResourceManager : Singleton<ResourceManager>
             return;
         }
 
-        string loadKey = key;
-        //if (key.Contains(".sprite"))
-        //    loadKey = $"{key}[{key.Replace(".sprite", "")}]";
-
-        var operation = Addressables.LoadAssetAsync<T>(loadKey);
+        var operation = Addressables.LoadAssetAsync<T>(key);
         operation.Completed += op =>
         {
             _resources.Add(key, op.Result);
@@ -46,39 +42,19 @@ public class ResourceManager : Singleton<ResourceManager>
         };
     }
 
-    public T Load<T>(string key) where T : UnityEngine.Object
+    public T GetCache<T>(string key) where T : UnityEngine.Object
     {
         if (!_resources.TryGetValue(key, out var resource))
             return null;
         return resource as T;
     }
 
-    public void UnLoad(string key)
+    public void Release(string key)
     {
         if (_resources.TryGetValue(key, out var resource))
         {
             Addressables.Release(resource);
             _resources.Remove(key);
         }
-    }
-
-    public GameObject Instantiate(string key) => Instantiate<GameObject>(key);
-
-    public T Instantiate<T>(string key) where T : UnityEngine.Object
-    {
-        var obj = Load<T>(key);
-        if (obj == null)
-        {
-            Debug.LogError($"{nameof(ResourceManager)}: {key} Load failed.");
-            return null;
-        }
-        return Instantiate(obj);
-    }
-
-    new public void Destroy(UnityEngine.Object obj)
-    {
-        // 어떻게 동작하는 걸까 ?
-        // 단순히 Destroy(gameObject)와 어떤 차이점이 있을까 .
-        UnityEngine.Object.Destroy(obj);
     }
 }
