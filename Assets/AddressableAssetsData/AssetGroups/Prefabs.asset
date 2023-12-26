@@ -23,6 +23,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - Preload
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c248e43da712f345922454aa2f2fdbb
+    m_Address: Ball.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 003a42301b5afbc4e8aede6fce785c95
+    m_Address: Floor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 399141510da428f4b8cb531d5bc88a77, type: 2}
   m_SchemaSet:

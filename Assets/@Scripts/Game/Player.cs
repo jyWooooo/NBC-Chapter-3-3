@@ -4,9 +4,12 @@ using UnityEngine;
 public class Player : MonoBehaviourPun
 {
     private bool _initialized = false;
-    private Animator _animator;
     private Transform _modelRoot;
 
+    public readonly int AnimatorHash_MoveVelocity = Animator.StringToHash("MoveVelocity");
+
+    public Animator Animator { get; private set; }
+    public PlayerInputReceiver InputReceiver { get; private set; }
     public RuntimeAnimatorController RuntimeAnimatorController { get; private set; }
     public GameObject Model { get; private set; }
 
@@ -19,8 +22,9 @@ public class Player : MonoBehaviourPun
     {
         if (_initialized) return false;
 
-        _animator = GetComponentInChildren<Animator>();
+        Animator = GetComponentInChildren<Animator>();
         _modelRoot = transform.GetChild(0);
+        InputReceiver = GetComponent<PlayerInputReceiver>();
 
         _initialized = true;
         return true;
@@ -30,7 +34,7 @@ public class Player : MonoBehaviourPun
     {
         if (!Initialize()) return;
 
-        _animator = Instantiate(model, _modelRoot).GetComponentInChildren<Animator>();
-        _animator.runtimeAnimatorController = anim;
+        Animator = Instantiate(model, _modelRoot).GetComponentInChildren<Animator>();
+        Animator.runtimeAnimatorController = anim;
     }
 }

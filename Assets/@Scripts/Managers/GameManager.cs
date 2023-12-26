@@ -8,18 +8,18 @@ public class GameManager : Singleton<GameManager>
     {
         base.Start();
 
-        // 1. 포톤 서버 연결
-        PhotonConnect(() =>
+        // 1. 리소스 로드
+        ResourceLoad((key, count, total) =>
         {
-            // 2. 리소스 로드
-            ResourceLoad((key, count, total) =>
+            if (count == total)
             {
-                if (count == total)
+                // 2. 포톤 서버 연결
+                PhotonConnect(() =>
                 {
                     // 3. 맵, 캐릭터, 공 생성 (게임 시작)
                     GameStart();
-                }
-            });
+                });
+            }
         });
     }
 
@@ -39,7 +39,21 @@ public class GameManager : Singleton<GameManager>
         // Addressable에서 Load한 prefab을 PhotonNetwork.PrefabPool에 등록해야함.
         SetPhotonPrefabPool();
 
+        CreateMap();
         PlayerSpawn();
+        BallSpawn();
+    }
+
+    private void BallSpawn()
+    {
+        var ballPrefab = ResourceManager.Instance.GetCache<GameObject>("Ball.prefab");
+        Instantiate(ballPrefab);
+    }
+
+    private void CreateMap()
+    {
+        var floorPrefab = ResourceManager.Instance.GetCache<GameObject>("Floor.prefab");
+        Instantiate(floorPrefab);
     }
 
     private void SetPhotonPrefabPool()
@@ -48,9 +62,6 @@ public class GameManager : Singleton<GameManager>
         var playerPrefab = ResourceManager.Instance.GetCache<GameObject>("Player.prefab");
         var pool = PhotonNetwork.PrefabPool as DefaultPool;
         pool.ResourceCache.Add("Player.prefab", playerPrefab);
-
-        // 2. 공 prefab 등록
-
     }
 
     public void PlayerSpawn()
