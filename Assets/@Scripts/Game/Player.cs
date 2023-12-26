@@ -1,10 +1,11 @@
 using Photon.Pun;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviourPun
 {
     private bool _initialized = false;
-    private Transform _modelRoot;
+    private GameObject _playerCheck;
 
     public readonly int AnimatorHash_MoveVelocity = Animator.StringToHash("MoveVelocity");
 
@@ -23,18 +24,12 @@ public class Player : MonoBehaviourPun
         if (_initialized) return false;
 
         Animator = GetComponentInChildren<Animator>();
-        _modelRoot = transform.GetChild(0);
+        _playerCheck = transform.Find("PlayerCheck").gameObject;
+        if (!photonView.IsMine)
+            _playerCheck.SetActive(false);
         InputReceiver = GetComponent<PlayerInputReceiver>();
 
         _initialized = true;
         return true;
-    }
-
-    public void SetInfo(GameObject model, RuntimeAnimatorController anim)
-    {
-        if (!Initialize()) return;
-
-        Animator = Instantiate(model, _modelRoot).GetComponentInChildren<Animator>();
-        Animator.runtimeAnimatorController = anim;
     }
 }

@@ -18,7 +18,7 @@ public class ResourceManager : Singleton<ResourceManager>
         var operation = Addressables.LoadAssetAsync<T>(key);
         operation.Completed += op =>
         {
-            _resources.Add(key, op.Result);
+            _resources.TryAdd(key, op.Result);
             callback?.Invoke(op.Result);
         };
     }

@@ -41,7 +41,17 @@ public class PhotonConnector : PhotonSingleton<PhotonConnector>
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log("OnDisconnected(" + cause + ")");
-        PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+        //PhotonNetwork.DestroyPlayerObjects(PhotonNetwork.LocalPlayer);
+    }
+
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+    {
+        Debug.Log("OnMasterClientSwitched");
+        //GameManager.Instance.ball.GetComponent<PhotonView>().TransferOwnership(newMasterClient);
+
+        // MasterClient가 바뀌면 ballState의 정보를 이용해 공 생성
+        if (PhotonNetwork.IsMasterClient)
+            GameManager.Instance.BallSpawn();
     }
 
     public override void OnJoinedRoom()
