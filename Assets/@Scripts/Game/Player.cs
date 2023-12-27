@@ -8,10 +8,10 @@ public class Player : MonoBehaviourPun
     private GameObject _playerCheck;
 
     public readonly int AnimatorHash_MoveVelocity = Animator.StringToHash("MoveVelocity");
+    public readonly int AnimatorHash_IsCharge = Animator.StringToHash("IsCharge");
 
     public Animator Animator { get; private set; }
     public PlayerInputReceiver InputReceiver { get; private set; }
-    public RuntimeAnimatorController RuntimeAnimatorController { get; private set; }
     public GameObject Model { get; private set; }
 
     private void Start()

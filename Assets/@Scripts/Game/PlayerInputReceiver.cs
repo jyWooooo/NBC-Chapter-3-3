@@ -7,6 +7,8 @@ public class PlayerInputReceiver : MonoBehaviour
 {
     private PlayerInput _input;
     private InputAction _move;
+    private InputAction _kick;
+    private InputAction _look;
 
     public PlayerInput Input
     {
@@ -25,6 +27,26 @@ public class PlayerInputReceiver : MonoBehaviour
             if (_move == null)
                 _move = Input.currentActionMap.FindAction("Move");
             return _move;
+        }
+    }
+
+    public InputAction Kick
+    {
+        get
+        {
+            if (_kick == null)
+                _kick = Input.currentActionMap.FindAction("Kick");
+            return _kick;
+        }
+    }
+
+    public InputAction Look
+    {
+        get
+        {
+            if (_look == null)
+                _look = Input.currentActionMap.FindAction("Look");
+            return _look;
         }
     }
 
