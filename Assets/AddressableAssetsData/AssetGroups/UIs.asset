@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Animations
+  m_Name: UIs
   m_EditorClassIdentifier: 
-  m_GroupName: Animations
+  m_GroupName: UIs
   m_Data:
     m_SerializedData: []
-  m_GUID: cd6215e00f84d3d48a1b921a545b7efb
+  m_GUID: ab3351a20c51fa74394eeeef569f80e6
   m_SerializeEntries:
-  - m_GUID: f0d9acb8185eda9499285f74cae0c33a
-    m_Address: Humanoid.anim
+  - m_GUID: 1d6927e973278d549ba1e93760b3bc9b
+    m_Address: TitleSceneUI.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Game
+    - Title
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 399141510da428f4b8cb531d5bc88a77, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 07848c9d0918ac54fb721097f05324d0, type: 2}
-    - {fileID: 11400000, guid: 70970739ff9d540489ca5bf0a44ab191, type: 2}
+    - {fileID: 11400000, guid: 53cffa74359028245906da0f2826eb25, type: 2}
+    - {fileID: 11400000, guid: 4c6437e9139f74949b9e3de0b74e1c3c, type: 2}

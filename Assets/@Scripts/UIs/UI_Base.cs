@@ -65,9 +65,9 @@ public class UI_Base : MonoBehaviour
         UIEventHandler.Entry entry = new()
         {
             eventID = eventType,
-            inputButton = inputButton.Value
+            inputButton = inputButton,
         };
-        entry.callback += action as Action<BaseEventData>;
+        entry.callback += data => action?.Invoke(data as T);
         uIEventHandler.Triggers.Add(entry);
     }
 }

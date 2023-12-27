@@ -65,7 +65,7 @@ public class GameManager : Singleton<GameManager>
 
     public void ResourceLoad(Action<string, int, int> callback = null)
     {
-        ResourceManager.Instance.LoadAllAsync<UnityEngine.Object>("Preload", callback);
+        ResourceManager.Instance.LoadAllAsync<UnityEngine.Object>("Game", callback);
     }
 
     public void GameStart()
@@ -76,6 +76,8 @@ public class GameManager : Singleton<GameManager>
         CreateMap();
         PlayerSpawn();
         BallSpawn();
+
+        Camera.main.clearFlags = CameraClearFlags.Skybox;
     }
 
     public void BallSpawn()

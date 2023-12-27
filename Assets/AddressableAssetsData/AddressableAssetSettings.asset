@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 75a33eaf87f9f4b46a503a8472c30c98
   m_currentHash:
     serializedVersion: 2
-    Hash: 9ebf406a972d1891846e79916a5f1375
+    Hash: 26c04c1049596f38efb3ac94329d0ffc
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b4ac81cb6b18b0042bd994d97bac8bf0, type: 2}
   - {fileID: 11400000, guid: 597b897a962fc864f9752b040f770cc4, type: 2}
   - {fileID: 11400000, guid: 8a51ed56283fbcd4db6a52f7d144b224, type: 2}
+  - {fileID: 11400000, guid: 57d2049e44d368e45a19097d73bc6a8a, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -90,7 +91,8 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
-    - Preload
+    - Game
+    - Title
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 3f292ab45a4516d40b66ee1a5f483375, type: 2}

@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Address: XBot.fbx
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Preload
+    - Game
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 399141510da428f4b8cb531d5bc88a77, type: 2}
