@@ -6,7 +6,8 @@ public class Ball : MonoBehaviourPun
     private Rigidbody _rigid;
     private Vector3 _velocity;
     [SerializeField] private float _basePower;
-    private GameObject _kicker;
+
+    public int KickerID { get; private set; }
 
     private void Start()
     {
@@ -19,21 +20,25 @@ public class Ball : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void Shoot(Vector3 dir, float power)
+    private void OnContactWall()
     {
-        if (photonView.IsMine)
-            _rigid.velocity = _basePower * power * dir;
+        KickerID = int.MinValue;
     }
 
     [PunRPC]
-    public void Catch(Vector3 pos)
+    public void Shoot(Vector3 dir, float power, int kickerID)
     {
-        if (photonView.IsMine)
-        {
-            transform.position = pos + Vector3.up * transform.localScale.x / 2;
-            _rigid.velocity = Vector3.zero;
-            _rigid.angularVelocity = Vector3.zero;
-        }
+        KickerID = kickerID;
+        _rigid.velocity = _basePower * power * dir;
+    }
+
+    [PunRPC]
+    public void Catch(Vector3 pos, int kickerID)
+    {
+        KickerID = kickerID;
+        transform.position = pos + Vector3.up * transform.localScale.x / 2;
+        _rigid.velocity = Vector3.zero;
+        _rigid.angularVelocity = Vector3.zero;
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -42,7 +47,6 @@ public class Ball : MonoBehaviourPun
         {
             if (collision.contacts.Length > 0)
             {
-                Debug.Log(collision.contacts.Length + " " + collision.contacts[0].otherCollider.name);
                 var normal = collision.contacts[0].normal;
                 var reflect = Vector3.Reflect(_velocity.normalized, normal);
                 reflect.y = 0f;
@@ -50,7 +54,7 @@ public class Ball : MonoBehaviourPun
                     return;
                 _rigid.velocity = _velocity.magnitude * reflect.normalized;
                 _rigid.angularVelocity = Vector3.zero;
-                _kicker = null;
+                photonView.RPC("OnContactWall", RpcTarget.All);
             }
         }
     }

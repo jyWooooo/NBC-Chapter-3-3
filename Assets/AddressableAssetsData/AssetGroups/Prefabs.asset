@@ -35,6 +35,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Game
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0014ebdd80a28bd4eb5254b4c72fedce
+    m_Address: Ragdoll.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 399141510da428f4b8cb531d5bc88a77, type: 2}
   m_SchemaSet:

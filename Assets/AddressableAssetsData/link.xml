@@ -3,7 +3,9 @@
     <type fullname="Ball" preserve="all" />
     <type fullname="Player" preserve="all" />
     <type fullname="PlayerController" preserve="all" />
+    <type fullname="PlayerHitHandler" preserve="all" />
     <type fullname="PlayerInputReceiver" preserve="all" />
+    <type fullname="Ragdoll" preserve="all" />
     <type fullname="TitleSceneUI" preserve="all" />
   </assembly>
   <assembly fullname="PhotonUnityNetworking, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
@@ -73,7 +75,9 @@
     <type fullname="UnityEngine.Events.PersistentCallGroup" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.BoxCollider" preserve="all" />
     <type fullname="UnityEngine.CapsuleCollider" preserve="all" />
+    <type fullname="UnityEngine.CharacterJoint" preserve="all" />
     <type fullname="UnityEngine.MeshCollider" preserve="all" />
     <type fullname="UnityEngine.Rigidbody" preserve="all" />
     <type fullname="UnityEngine.SphereCollider" preserve="all" />

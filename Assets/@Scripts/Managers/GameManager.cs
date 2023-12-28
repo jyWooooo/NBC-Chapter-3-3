@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
-    public GameObject ball;
+    public GameObject Ball {  get; private set; }
+    public GameObject MyPlayer { get; private set; }
     private Rigidbody _ballRigid;
 
     public struct BallStateStruct
@@ -12,6 +13,7 @@ public class GameManager : Singleton<GameManager>
         public Vector3 position;
         public Quaternion rotation;
         public Vector3 velocity;
+        public Vector3 angularVelocity;
     }
 
     // 이 구조체를 이용해 공의 정보를 모든 유저가 기억
@@ -19,7 +21,8 @@ public class GameManager : Singleton<GameManager>
     {
         position = new Vector3(0, 10, 0),
         rotation = Quaternion.identity,
-        velocity = new Vector3(0, 0, 0),
+        velocity = Vector3.zero,
+        angularVelocity = Vector3.zero,
     };
 
     protected override void Start()
@@ -43,18 +46,19 @@ public class GameManager : Singleton<GameManager>
 
     private void Update()
     {
-        if (ball == null)
+        if (Ball == null)
         {
-            ball = GameObject.FindWithTag("Ball");
-            if (ball != null)
-                _ballRigid = ball.GetComponent<Rigidbody>();
+            Ball = GameObject.FindWithTag("Ball");
+            if (Ball != null)
+                _ballRigid = Ball.GetComponent<Rigidbody>();
             return;
         }
 
         // 공 상태 추적
-        ballState.position = ball.transform.position;
-        ballState.rotation = ball.transform.rotation;
+        ballState.position = Ball.transform.position;
+        ballState.rotation = Ball.transform.rotation;
         ballState.velocity = _ballRigid.velocity;
+        ballState.angularVelocity = _ballRigid.angularVelocity;
     }
 
     public void PhotonConnect(Action callback = null)
@@ -85,9 +89,10 @@ public class GameManager : Singleton<GameManager>
         // Host에서만 공 생성
         if (PhotonNetwork.IsMasterClient)
         {
-            ball = PhotonNetwork.Instantiate("Ball.prefab", ballState.position, ballState.rotation);
-            _ballRigid = ball.GetComponent<Rigidbody>();
+            Ball = PhotonNetwork.Instantiate("Ball.prefab", ballState.position, ballState.rotation);
+            _ballRigid = Ball.GetComponent<Rigidbody>();
             _ballRigid.velocity = ballState.velocity;
+            _ballRigid.angularVelocity = ballState.angularVelocity;
         }
     }
 
@@ -117,6 +122,7 @@ public class GameManager : Singleton<GameManager>
     public void PlayerSpawn()
     {
         // PhotonNetwork.PrefabPool을 이용해 생성
-        PhotonNetwork.Instantiate("Player.prefab", Vector3.zero, Quaternion.identity);
+        MyPlayer = PhotonNetwork.Instantiate("Player.prefab", Vector3.zero, Quaternion.identity);
+        MyPlayer.GetComponent<Player>().photonView.RPC("SetInvincible", RpcTarget.All);
     }
 }

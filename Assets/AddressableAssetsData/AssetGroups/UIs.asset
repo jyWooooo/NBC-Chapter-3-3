@@ -23,6 +23,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Title
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3dbcc7edb59fdd647b5c23e7d1e00d35
+    m_Address: RespawnPopUpUI.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Game
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 399141510da428f4b8cb531d5bc88a77, type: 2}
   m_SchemaSet:

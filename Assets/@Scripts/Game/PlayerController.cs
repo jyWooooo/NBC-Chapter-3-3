@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
         if (_ball == null)
             return;
 
-        _ball.photonView.RPC("Catch", RpcTarget.All, transform.position);
+        _ball.photonView.RPC("Catch", RpcTarget.All, transform.position, _pv.ViewID);
         _isCharge = true;
         _player.Animator.SetFloat(_player.AnimatorHash_MoveVelocity, 0f);
         _player.Animator.SetBool(_player.AnimatorHash_IsCharge, true);
@@ -96,8 +96,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_ball == null)
             return;
-
-        _ball.photonView.RPC("Shoot", RpcTarget.All, _kickDirection, _chagedPower);
+        _ball.photonView.RPC("Shoot", RpcTarget.All, _kickDirection, _chagedPower, _pv.ViewID);
         _isCharge = false;
         _player.Animator.SetFloat(_player.AnimatorHash_MoveVelocity, _moveVelocity.magnitude);
         _player.Animator.SetBool(_player.AnimatorHash_IsCharge, false);
@@ -119,10 +118,10 @@ public class PlayerController : MonoBehaviour
 
     private void DetectBall()
     {
-        if (GameManager.Instance.ball == null)
+        if (GameManager.Instance.Ball == null)
             return;
 
-        var ball = GameManager.Instance.ball;
+        var ball = GameManager.Instance.Ball;
         float dist = Vector3.Distance(ball.transform.position, transform.position);
         if (dist < _ballDetectRange)
             _ball = ball.GetComponent<Ball>();

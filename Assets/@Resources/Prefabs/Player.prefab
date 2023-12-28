@@ -62,7 +62,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 5795178147292438644}
-  - {fileID: 3860500467162467908}
+  - {fileID: 5244170457453835220}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -78,6 +78,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7917e39e4b599d54c941501bc31272d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _meshRenderers: []
+  _invincibleTime: 3
+  _invincibleFlashInterval: 0.2
 --- !u!114 &6735656535619478358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4493892181625180465}
   - component: {fileID: 5789309492364870160}
+  - component: {fileID: 3452885383864410277}
   m_Layer: 8
   m_Name: Hit
   m_TagString: Untagged
@@ -289,6 +293,18 @@ CapsuleCollider:
   m_Height: 1.7
   m_Direction: 1
   m_Center: {x: 0, y: 0.85, z: 0}
+--- !u!114 &3452885383864410277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5384937763010543824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83dfa548bc9e12045990f443619f9489, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7586033477820268523
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +454,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ba01554be337ee841956ec4aec1926a1, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3860500467162467908}
+      addedObject: {fileID: 5244170457453835220}
   m_SourcePrefab: {fileID: 100100000, guid: ba01554be337ee841956ec4aec1926a1, type: 3}
 --- !u!4 &6085167967465930539 stripped
 Transform:
@@ -450,7 +466,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ba01554be337ee841956ec4aec1926a1, type: 3}
   m_PrefabInstance: {fileID: 6050697682183854272}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3860500467162467908
+--- !u!114 &5244170457453835220
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -471,9 +487,6 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 2
     Name: IsCharge
-  - Type: 9
-    SynchronizeType: 2
-    Name: Kick
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
