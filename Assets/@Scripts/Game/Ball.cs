@@ -1,7 +1,7 @@
 using Photon.Pun;
 using UnityEngine;
 
-public class Ball : MonoBehaviourPun
+public class Ball : MonoBehaviourPun, IPunObservable
 {
     private Rigidbody _rigid;
     private Vector3 _velocity;
@@ -29,16 +29,20 @@ public class Ball : MonoBehaviourPun
     public void Shoot(Vector3 dir, float power, int kickerID)
     {
         KickerID = kickerID;
-        _rigid.velocity = _basePower * power * dir;
+        if (photonView.IsMine)
+            _rigid.velocity = _basePower * power * dir;
     }
 
     [PunRPC]
     public void Catch(Vector3 pos, int kickerID)
     {
         KickerID = kickerID;
-        transform.position = pos + Vector3.up * transform.localScale.x / 2;
-        _rigid.velocity = Vector3.zero;
-        _rigid.angularVelocity = Vector3.zero;
+        if (photonView.IsMine)
+        {
+            transform.position = pos + Vector3.up * transform.localScale.x / 2;
+            _rigid.velocity = Vector3.zero;
+            _rigid.angularVelocity = Vector3.zero;
+        }
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -56,6 +60,24 @@ public class Ball : MonoBehaviourPun
                 _rigid.angularVelocity = Vector3.zero;
                 photonView.RPC("OnContactWall", RpcTarget.All);
             }
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(_rigid.position);
+            stream.SendNext(_rigid.rotation);
+            stream.SendNext(_rigid.velocity);
+            stream.SendNext(_rigid.angularVelocity);
+        }
+        else
+        {
+            _rigid.position = (Vector3)stream.ReceiveNext();
+            _rigid.rotation = (Quaternion)stream.ReceiveNext();
+            _rigid.velocity = (Vector3)stream.ReceiveNext();
+            _rigid.angularVelocity = (Vector3)stream.ReceiveNext();
         }
     }
 }

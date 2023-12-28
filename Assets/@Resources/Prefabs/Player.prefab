@@ -79,8 +79,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _meshRenderers: []
-  _invincibleTime: 3
-  _invincibleFlashInterval: 0.2
 --- !u!114 &6735656535619478358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,10 +133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b05a033e6834ab44991ef7667e21746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 3
-  _maxPower: 3
-  _ballDetectRange: 2
-  _kickCooltime: 3
 --- !u!54 &5293236715144691074
 Rigidbody:
   m_ObjectHideFlags: 0
