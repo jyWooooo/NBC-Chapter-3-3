@@ -6,10 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     private Player _player;
     private Rigidbody _rigid;
-    [SerializeField] private float _moveSpeed = 3.0f;
-    [SerializeField] private float _maxPower = 3f;
-    [SerializeField] private float _ballDetectRange = 2.0f;
-    [SerializeField] private float _kickCooltime = 3f;
     private PhotonView _pv;
     private bool _isCharge;
     private float _chagedPower;
@@ -17,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 _kickDirection;
     private float _remainKickCooltime;
     private Ball _ball;
+    private PlayerData _playerData;
+
 
     private void Start()
     {
@@ -24,6 +22,7 @@ public class PlayerController : MonoBehaviour
         _rigid = GetComponent<Rigidbody>();
         _player = GetComponent<Player>();
         _player.Initialize();
+        _playerData = _player.PlayerData;
         if (_pv.IsMine)
         {
             var receiver = _player.InputReceiver;
@@ -61,7 +60,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         transform.forward = new Vector3(_moveVelocity.x, 0, _moveVelocity.y);
-        _rigid.MovePosition(_rigid.position + _moveSpeed * Time.fixedDeltaTime * transform.forward);
+        _rigid.MovePosition(_rigid.position + _playerData.MoveSpeed * Time.fixedDeltaTime * transform.forward);
     }
 
     public void KickChargeStart(InputAction.CallbackContext context)
@@ -86,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
         _chagedPower += Time.fixedDeltaTime;
         transform.forward = _kickDirection;
-        if (_chagedPower > _maxPower)
+        if (_chagedPower > _playerData.MaxPower)
             Kick();
     }
 
@@ -102,7 +101,7 @@ public class PlayerController : MonoBehaviour
         _player.Animator.SetBool(_player.AnimatorHash_IsCharge, false);
         _ball = null;
         _chagedPower = 0f;
-        _remainKickCooltime = _kickCooltime;
+        _remainKickCooltime = _playerData.KickCooltime;
     }
 
     public void Look(InputAction.CallbackContext context)
@@ -123,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
         var ball = GameManager.Instance.Ball;
         float dist = Vector3.Distance(ball.transform.position, transform.position);
-        if (dist < _ballDetectRange)
+        if (dist < _playerData.BallDetectRange)
             _ball = ball.GetComponent<Ball>();
         else
             _ball = null;

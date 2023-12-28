@@ -8,12 +8,11 @@ public class Player : MonoBehaviourPun, IHitable
     private float _remainInvincibleTime;
     private float _invincibleFlashLapse;
     public SkinnedMeshRenderer[] _meshRenderers;
-    [SerializeField] private float _invincibleTime = 3f;
-    [SerializeField] private float _invincibleFlashInterval = 0.2f;
 
     public readonly int AnimatorHash_MoveVelocity = Animator.StringToHash("MoveVelocity");
     public readonly int AnimatorHash_IsCharge = Animator.StringToHash("IsCharge");
 
+    public PlayerData PlayerData { get; private set; }
     public Animator Animator { get; private set; }
     public PlayerInputReceiver InputReceiver { get; private set; }
 
@@ -42,6 +41,8 @@ public class Player : MonoBehaviourPun, IHitable
             _playerCheck.SetActive(false);
         InputReceiver = GetComponent<PlayerInputReceiver>();
         _meshRenderers = transform.Find("Model").gameObject.GetComponentsInChildren<SkinnedMeshRenderer>();
+        PlayerData = ResourceManager.Instance.GetCache<PlayerData>("PlayerData.data");
+
         _initialized = true;
         return true;
     }
@@ -73,7 +74,7 @@ public class Player : MonoBehaviourPun, IHitable
     [PunRPC]
     public void SetInvincible()
     {
-        _remainInvincibleTime = _invincibleTime;
+        _remainInvincibleTime = PlayerData.InvincibleTime;
     }
 
     [PunRPC]
@@ -88,7 +89,7 @@ public class Player : MonoBehaviourPun, IHitable
 
         _remainInvincibleTime -= Time.fixedDeltaTime;
         _invincibleFlashLapse += Time.fixedDeltaTime;
-        if (_invincibleFlashInterval < _invincibleFlashLapse)
+        if (PlayerData.InvincibleFlashInterval < _invincibleFlashLapse)
         {
             _invincibleFlashLapse = 0f;
             SetActiveMeshRenderers(!_meshRenderers[0].enabled);

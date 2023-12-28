@@ -5,7 +5,7 @@ public class Ball : MonoBehaviourPun
 {
     private Rigidbody _rigid;
     private Vector3 _velocity;
-    [SerializeField] private float _basePower;
+    [SerializeField] private float _basePower = 10f;
 
     public int KickerID { get; private set; }
 
