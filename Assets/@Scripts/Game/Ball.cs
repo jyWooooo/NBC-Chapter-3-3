@@ -9,7 +9,7 @@ public class Ball : MonoBehaviourPun, IPunObservable
 
     public int KickerID { get; private set; }
 
-    private void Start()
+    private void Awake()
     {
         _rigid = GetComponent<Rigidbody>();
     }
