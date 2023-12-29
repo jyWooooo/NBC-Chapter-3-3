@@ -20,7 +20,7 @@ public class Ball : MonoBehaviourPun, IPunObservable
     }
 
     [PunRPC]
-    private void OnContactWall()
+    private void DeleteKickerID()
     {
         KickerID = int.MinValue;
     }
@@ -58,7 +58,7 @@ public class Ball : MonoBehaviourPun, IPunObservable
                     return;
                 _rigid.velocity = _velocity.magnitude * reflect.normalized;
                 _rigid.angularVelocity = Vector3.zero;
-                photonView.RPC("OnContactWall", RpcTarget.All);
+                photonView.RPC("DeleteKickerID", RpcTarget.All);
             }
         }
     }

@@ -26,4 +26,19 @@ public class PlayerHitHandler : MonoBehaviour
             }
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        var pv = _parent.photonView;
+
+        if (pv.IsMine)
+        {
+            var ball = other.GetComponentInParent<Ball>();
+            if (ball != null)
+            {
+                if (_parent.CheckKickerID(ball.KickerID))
+                    ball.photonView.RPC("DeleteKickerID", RpcTarget.All);
+            }
+        }
+    }
 }
